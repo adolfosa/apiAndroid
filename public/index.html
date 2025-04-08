@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impresión de Tickets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generador de Tickets</h1>
+    <form id="ticketForm">
+        <div class="form-group">
+            <label for="company">Empresa:</label>
+            <input type="text" id="company" value="TRANSPORTES SEGUROS">
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="passenger">Pasajero:</label>
+                <input type="text" id="passenger" value="JUAN PÉREZ">
+            </div>
+            <div class="form-group">
+                <label for="destination">Destino:</label>
+                <input type="text" id="destination" value="CANCÚN CENTRO">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="date">Fecha:</label>
+                <input type="text" id="date" value="">
+            </div>
+            <div class="form-group">
+                <label for="time">Hora:</label>
+                <input type="text" id="time" value="">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="boarding">Terminal:</label>
+                <input type="text" id="boarding" value="TERMINAL 2">
+            </div>
+            <div class="form-group">
+                <label for="gate">Puerta:</label>
+                <input type="text" id="gate" value="3">
+            </div>
+            <div class="form-group">
+                <label for="seat">Asiento:</label>
+                <input type="text" id="seat" value="B07">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="price">Precio ($):</label>
+            <input type="text" id="price" value="175.50">
+        </div>
+        
+        <button type="button" onclick="imprimirTicket()">IMPRIMIR TICKET</button>
+    </form>
+
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <script>
+        // Rellenar fecha y hora actual al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            document.getElementById('date').value = now.toLocaleDateString();
+            document.getElementById('time').value = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        });
+
+        async function imprimirTicket() {
+            const data = {
+                company: document.getElementById('company').value,
+                passenger: document.getElementById('passenger').value,
+                destination: document.getElementById('destination').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                boarding: document.getElementById('boarding').value,
+                gate: document.getElementById('gate').value,
+                seat: document.getElementById('seat').value,
+                price: document.getElementById('price').value
+            };
+
+            try {
+                const response = await fetch('/api/ticket', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                document.getElementById('result').innerHTML = 
+                    `<p style="color: ${result.success ? 'green' : 'red'}">${result.message || result.error}</p>`;
+                
+                if (result.success) {
+                    // Resetear formulario después de imprimir
+                    document.getElementById('ticketForm').reset();
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    `<p style="color: red">Error de conexión: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
