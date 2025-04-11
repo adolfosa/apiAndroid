@@ -6,19 +6,19 @@ const {
 
 module.exports.generateTravelTicket = function(data) {
     const {
-        boleto = "123456",
-        codigo = "TRX789012",
-        servicio = "PULLMAN BUS",
-        ruta = "SANTIAGO - VALPARAÍSO",
-        piso = "1",
-        asiento = "A12",
-        fecha = new Date().toLocaleDateString(),
-        hora = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        origen = "TERMINAL SANTIAGO",
-        destino = "TERMINAL VALPARAÍSO",
-        tipo_cliente = "PULLMAN PASS",
-        fecha_compra = new Date().toLocaleDateString(),
-        total = "12500"
+        boleto,
+        codigo,
+        servicio,
+        ruta,
+        piso,
+        asiento,
+        fecha,
+        hora,
+        origen,
+        destino,
+        tipo_cliente,
+        fecha_compra,
+        total
     } = data;
 
     const configInicial = [INIT, SET_SPANISH, SET_CP437].join('');
@@ -26,7 +26,7 @@ module.exports.generateTravelTicket = function(data) {
     const contenidoTicket = [
         configInicial,
         ALIGN_CENTER, BOLD_ON, DOUBLE_HEIGHT,
-        'PULLMAN BUS\n',
+        `${servicio}\n`,
         NORMAL_HEIGHT, BOLD_OFF,
         'BOLETO DE VIAJE\n',
         DIVIDER + '\n',
