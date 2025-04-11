@@ -45,50 +45,73 @@
     <h1>Generador de Tickets</h1>
     <form id="ticketForm">
         <div class="form-group">
-            <label for="company">Empresa:</label>
-            <input type="text" id="company" value="TRANSPORTES SEGUROS">
+            <label for="boleto">Número de Boleto:</label>
+            <input type="text" id="boleto" value="123456">
+        </div>
+        
+        <div class="form-group">
+            <label for="codigo">Código de Transacción:</label>
+            <input type="text" id="codigo" value="TRX789012">
         </div>
         
         <div class="form-row">
             <div class="form-group">
-                <label for="passenger">Pasajero:</label>
-                <input type="text" id="passenger" value="JUAN PÉREZ">
+                <label for="servicio">Servicio:</label>
+                <input type="text" id="servicio" value="PULLMAN BUS">
             </div>
             <div class="form-group">
-                <label for="destination">Destino:</label>
-                <input type="text" id="destination" value="CANCÚN CENTRO">
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="date">Fecha:</label>
-                <input type="text" id="date" value="">
-            </div>
-            <div class="form-group">
-                <label for="time">Hora:</label>
-                <input type="text" id="time" value="">
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="boarding">Terminal:</label>
-                <input type="text" id="boarding" value="TERMINAL 2">
-            </div>
-            <div class="form-group">
-                <label for="gate">Puerta:</label>
-                <input type="text" id="gate" value="3">
-            </div>
-            <div class="form-group">
-                <label for="seat">Asiento:</label>
-                <input type="text" id="seat" value="B07">
+                <label for="tipo_cliente">Tipo de Cliente:</label>
+                <input type="text" id="tipo_cliente" value="PULLMAN PASS">
             </div>
         </div>
         
         <div class="form-group">
-            <label for="price">Precio ($):</label>
-            <input type="text" id="price" value="175.50">
+            <label for="ruta">Ruta:</label>
+            <input type="text" id="ruta" value="SANTIAGO - VALPARAÍSO">
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="origen">Origen:</label>
+                <input type="text" id="origen" value="TERMINAL SANTIAGO">
+            </div>
+            <div class="form-group">
+                <label for="destino">Destino:</label>
+                <input type="text" id="destino" value="TERMINAL VALPARAÍSO">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fecha">Fecha Salida:</label>
+                <input type="text" id="fecha" value="">
+            </div>
+            <div class="form-group">
+                <label for="hora">Hora Salida:</label>
+                <input type="text" id="hora" value="">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="piso">Piso:</label>
+                <input type="text" id="piso" value="1">
+            </div>
+            <div class="form-group">
+                <label for="asiento">Asiento:</label>
+                <input type="text" id="asiento" value="A12">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fecha_compra">Fecha Compra:</label>
+                <input type="text" id="fecha_compra" value="">
+            </div>
+            <div class="form-group">
+                <label for="total">Total:</label>
+                <input type="text" id="total" value="12500">
+            </div>
         </div>
         
         <button type="button" onclick="imprimirTicket()">IMPRIMIR TICKET</button>
@@ -97,24 +120,29 @@
     <div id="result" style="margin-top: 20px;"></div>
 
     <script>
-        // Rellenar fecha y hora actual al cargar la página
+        // Rellenar fechas y hora actual al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
             const now = new Date();
-            document.getElementById('date').value = now.toLocaleDateString();
-            document.getElementById('time').value = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('fecha').value = now.toLocaleDateString();
+            document.getElementById('hora').value = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('fecha_compra').value = now.toLocaleDateString();
         });
 
         async function imprimirTicket() {
             const data = {
-                company: document.getElementById('company').value,
-                passenger: document.getElementById('passenger').value,
-                destination: document.getElementById('destination').value,
-                date: document.getElementById('date').value,
-                time: document.getElementById('time').value,
-                boarding: document.getElementById('boarding').value,
-                gate: document.getElementById('gate').value,
-                seat: document.getElementById('seat').value,
-                price: document.getElementById('price').value
+                boleto: document.getElementById('boleto').value,
+                codigo: document.getElementById('codigo').value,
+                servicio: document.getElementById('servicio').value,
+                ruta: document.getElementById('ruta').value,
+                piso: document.getElementById('piso').value,
+                asiento: document.getElementById('asiento').value,
+                fecha: document.getElementById('fecha').value,
+                hora: document.getElementById('hora').value,
+                origen: document.getElementById('origen').value,
+                destino: document.getElementById('destino').value,
+                tipo_cliente: document.getElementById('tipo_cliente').value,
+                fecha_compra: document.getElementById('fecha_compra').value,
+                total: document.getElementById('total').value
             };
 
             try {
