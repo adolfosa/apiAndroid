@@ -1,0 +1,27 @@
+Para usar con Postman:
+
+Método: POST
+
+URL: http://tuservidor:3000/api/ticket
+
+Headers:
+
+Content-Type: application/json
+
+Body (raw JSON):
+
+{
+    "boleto": "123456",
+    "codigo": "TRX789012",
+    "servicio": "PULLMAN BUS",
+    "ruta": "SANTIAGO - VALPARAÍSO",
+    "piso": "1",
+    "asiento": "A12",
+    "fecha": "2023-12-15",
+    "hora": "15:30",
+    "origen": "TERMINAL SANTIAGO",
+    "destino": "TERMINAL VALPARAÍSO",
+    "tipo_cliente": "PULLMAN PASS",
+    "fecha_compra": "2023-12-10",
+    "total": "12500"
+}
